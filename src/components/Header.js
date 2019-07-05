@@ -1,19 +1,22 @@
+import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import { createMuiTheme, withStyles } from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { blue } from "@material-ui/core/colors";
+import { Link } from "react-router-dom";
+import "./Header.css";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     paddingBottom: 40,
-    justifyContent: 'flex-start',
-    display: 'flex'
+    justifyContent: "flex-start",
+    display: "flex"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -79,8 +82,11 @@ const Header = () => {
         <AppBar position="static">
           <Toolbar>
             <Typography className={classes.title} variant="h6" noWrap>
-              Best Movie
+              <Link to="/">
+                Best Movie
+              </Link>
             </Typography>
+
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />

@@ -1,7 +1,7 @@
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import CardMovie from './CardMovie'
-
+import CardMovie from "./CardMovie";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +23,7 @@ const Movies = () => {
         <Grid item lg={2} md={3} sm={6} xs={12}>
           <CardMovie />
         </Grid>
+
         <Grid item lg={2} md={3} sm={6} xs={12}>
           <CardMovie />
         </Grid>
