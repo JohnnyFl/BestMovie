@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
-import Header from "./components/Header";
-import Main from "./components/Main";
+import Header from "./Components/Header";
+import Main from "./Components/Main";
 import { downloadMovies } from "./Actions/actions";
-import "./App.css";
 import { connect } from "react-redux";
+import "./App.css";
 
 const mapDispatchToProps = {
   downloadMovies
 };
 
-const App = () => {
+const App = props => {
+  const { downloadMovies } = props;
   useEffect(() => {
     downloadMovies();
-  }, []);
+  });
 
   return (
     <div className="wrapper">

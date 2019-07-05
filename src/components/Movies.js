@@ -2,6 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CardMovie from "./CardMovie";
+import { connect } from "react-redux";
+
+const mapStateToProps = ({ movies }) => {
+  return { movies };
+};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,15 +19,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Movies = () => {
+const Movies = props => {
   const classes = useStyles();
-
+  const { movies } = props.movies;
+  console.log(movies)
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item lg={2} md={3} sm={6} xs={12}>
-          <CardMovie />
-        </Grid>
+        {/* {movies.map(movie => (
+          <Grid item lg={2} md={3} sm={6} xs={12}>
+            <CardMovie />
+          </Grid>
+        ))} */}
 
         <Grid item lg={2} md={3} sm={6} xs={12}>
           <CardMovie />
@@ -62,4 +70,7 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default connect(
+  mapStateToProps,
+  null
+)(Movies);
