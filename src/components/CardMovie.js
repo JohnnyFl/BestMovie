@@ -25,42 +25,43 @@ const useStyles = makeStyles({
   }
 });
 
-const CardMovie = () => {
+const CardMovie = props => {
   const classes = useStyles();
-
   const theme = createMuiTheme({
     palette: {
       primary: blue
     }
   });
 
+  const { movie } = props;
+
   return (
     <Card className={classes.card}>
       <ThemeProvider theme={theme}>
-        <Link to="/movie">
+        <Link to={`/movie/${movie.id}`}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="subtitle1" component="h2" align="center">
-                Avengers: Infinity War
+              <Typography variant="subtitle2" component="h2" align="center">
+                {movie.original_title || movie.original_name}
               </Typography>
             </CardContent>
             <CardMedia
               component="img"
               className={classes.media}
-              image="https://image.tmdb.org/t/p/w342/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-              title="Avengers: Infinity War"
+              image={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+              title={movie.original_title || movie.original_name}
             />
           </CardActionArea>
         </Link>
 
-        <CardActions className={classes.bottomInfo}>
+        {/* <CardActions className={classes.bottomInfo}>
           <Button size="small" color="primary">
             2019
           </Button>
           <Button size="small" color="primary">
             Comedy
           </Button>
-        </CardActions>
+        </CardActions> */}
       </ThemeProvider>
     </Card>
   );

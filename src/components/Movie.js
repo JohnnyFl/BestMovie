@@ -1,41 +1,87 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
 
-const Movie = () => {
+const mapStateToProps = ({ movies }) => {
+  return { movies };
+};
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  progress: {
+    margin: theme.spacing(2),
+    color: "#2196f3"
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary
+  }
+}));
+
+const styles = {
+  progressBarStyle: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%"
+  }
+};
+
+const Movie = props => {
+  const [movie, setMovie] = useState([]);
+  const classes = useStyles();
+
+  useEffect(() => {
+    setMovie(
+      props.movies
+        .filter(movie => movie.id === Number(props.match.params.id))
+        .find(movie => movie.id === Number(props.match.params.id))
+    );
+  }, [props.match.params.id, props.movies]);
+
   return (
-    <div>
-      <div>
-        <img
-          src="https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"
-          alt="movie"
-          style={{
-            width: "100%",
-            height: "80vh",
-            objectFit: "cover",
-            marginBottom: 30
-          }}
-        />
-      </div>
-      <Typography gutterBottom variant="h5" component="h2" align="center">
-        Avengers: Infinity War
-      </Typography>
-      <Typography
-        gutterBottom
-        component="p"
-        variant="subtitle1"
-        style={{ padding: "0 20%" }}
-      >
-        As the Avengers and their allies have continued to protect the world
-        from threats too large for any one hero to handle, a new danger has
-        emerged from the cosmic shadows: Thanos. A despot of intergalactic
-        infamy, his goal is to collect all six Infinity Stones, artifacts of
-        unimaginable power, and use them to inflict his twisted will on all of
-        reality. Everything the Avengers have fought for has led up to this
-        moment - the fate of Earth and existence itself has never been more
-        uncertain.
-      </Typography>
-    </div>
+    <>
+      {movie ? (
+        <div>
+          <div>
+            <img
+              src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+              alt="movie"
+              style={{
+                width: "100%",
+                height: "80vh",
+                objectFit: "contain",
+                marginBottom: 30
+              }}
+            />
+          </div>
+          <Typography gutterBottom variant="h5" component="h2" align="center">
+            {movie.original_title || movie.original_name}
+          </Typography>
+          <Typography
+            gutterBottom
+            component="p"
+            variant="subtitle1"
+            style={{ padding: "20px 20%" }}
+          >
+            {movie.overview}
+          </Typography>
+        </div>
+      ) : (
+        <div style={styles.progressBarStyle}>
+          <CircularProgress className={classes.progress} />
+        </div>
+      )}
+    </>
   );
 };
 
-export default Movie;
+export default connect(
+  mapStateToProps,
+  null
+)(withRouter(Movie));

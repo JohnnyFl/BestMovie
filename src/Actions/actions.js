@@ -4,10 +4,9 @@ const API =
 export const downloadMovies = () => async dispatch => {
   let response = await fetch(API);
   let data = await response.json();
-  console.log(data);
 
   return dispatch({
     type: "DOWNLOAD_MOVIES",
-    payload: data
+    payload: data.results
   });
 };
