@@ -22,6 +22,12 @@ const useStyles = makeStyles({
   },
   bottomInfo: {
     justifyContent: "center"
+  },
+  typography: {
+    height: 35,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
   }
 });
 
@@ -41,7 +47,12 @@ const CardMovie = props => {
         <Link to={`/movie/${movie.id}`}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="subtitle2" component="h2" align="center">
+              <Typography
+                variant="subtitle2"
+                component="h2"
+                align="center"
+                className={classes.typography}
+              >
                 {movie.original_title || movie.original_name}
               </Typography>
             </CardContent>

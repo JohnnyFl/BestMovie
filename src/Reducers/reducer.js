@@ -7,6 +7,9 @@ const moviesReducer = (state = initialState, action) => {
     case "DOWNLOAD_MOVIES": {
       return { ...state, movies: action.payload};
     }
+    case "DOWNLOAD_MOVIES2": {
+      return {...state, movies: state.movies.concat(action.payload)}
+    }
     default:
       return { ...state };
   }
